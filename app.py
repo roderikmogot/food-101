@@ -5,7 +5,7 @@ from helper import load_model, convert, load_img, foods, top_5_predictions
 model = load_model("model.h5")
 
 st.markdown("# Food classifier")
-st.markdown("<h5>Check the sidebar for the types of food that can be detected!</h5>", unsafe_allow_html=True)
+st.markdown("<h6>Check the sidebar for the types of food that can be detected!</h6>", unsafe_allow_html=True)
 
 st.sidebar.selectbox(
     "List of food classes that are able to predict",
