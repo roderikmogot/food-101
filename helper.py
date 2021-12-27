@@ -131,11 +131,16 @@ def convert(image_file):
   return img
 
 def top_5_predictions(predictions_probabilities):
-  top_5_prediction_indexes = predictions_probabilities.argsort()[-5:][::-1]
-  top_5_prediction_classes = foods[top_5_prediction_indexes]
-  top_5_prediction_values = predictions_probabilities[top_5_prediction_indexes]
-
+  top_5_pred_indexes = predictions_probabilities.argsort()[-5:][::-1]
+  top_5_pred_labels = foods[top_5_pred_indexes]
+  top_5_pred_values = predictions_probabilities[top_5_pred_indexes]
   fig, ax = plt.subplots()
-  ax.bar(np.arange(len(top_5_prediction_classes)), top_5_prediction_values, color="red")
-  ax.set_xticks(np.arange(len(top_5_prediction_classes)), labels=top_5_prediction_classes, rotation="vertical")  
+  set_color = ['gray' if (x < tf.reduce_max(top_5_pred_values)) else 'green' for x in top_5_pred_values]
+  bar_plot = ax.bar(np.arange(len(top_5_pred_labels)), top_5_pred_values, color=set_color)
+  for idx,rect in enumerate(bar_plot):
+        height = rect.get_height()
+        ax.text(rect.get_x() + rect.get_width()/2., height,
+                str(f"{top_5_pred_values[idx]*100:.1f}%"),
+                ha='center', va='bottom', rotation=0, color=set_color[idx])
+  ax.set_xticks(np.arange(len(top_5_pred_labels)), labels=top_5_pred_labels, rotation="vertical")
   st.pyplot(fig)
