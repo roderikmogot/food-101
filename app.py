@@ -25,6 +25,6 @@ if image_file:
 
   st.write(f"Predicted: {pred_class}, with an accuracy of {custom_preds[0].max()*100:.0f}%!")
 
-  st.markdown("## Top 5 prediction probabilities")
+  st.markdown("## Top 5 predictions")
 
   top_5_predictions(custom_preds[0])
